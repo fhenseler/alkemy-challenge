@@ -1,0 +1,117 @@
+<div class="bg">
+    <br>
+<div class="container">
+
+    <div> <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="tryLogout()" style="float: right;">Log Out</button></div>
+    <br>
+    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+        <div class="card-header"><h4><b>Menu Stats</b></h4></div>
+        <div class="card-body">
+            <p class="card-text"><b>Total Price:</b> ${{ this.totalPrice.value }} </p>
+            <p class="card-text"><b>Average Prep Time:</b> {{ this.averageMinutes }} minutes</p>
+            <p class="card-text"><b>Average Health Score:</b> {{ this.averageHealthScore }}</p>
+        </div>
+    </div>
+    <div class="row float-left">
+        <div class="col-sm-8 col-md-6 col-lg-4">
+    <div class="card text-white bg-light mb-4 mx-auto" style="width: 60rem;">
+    <article class="card-body" style="width: 60rem;">
+
+
+<table appPanel id="tabla" class="table table-sm table-hover table-info table-striped">
+  <thead>
+    <tr>
+      <th class="text-center" colspan="7"><h4><b>Our Dishes</b></h4></th>
+    </tr>
+    <tr>
+      <th><h5><b>Name</b></h5></th>
+      <th><h5><b>Image</b></h5></th>
+      <th><h5><b>Description</b></h5></th>
+      <th><h5><b>Actions</b></h5></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+	<tr *ngFor="let dish of this.menu">
+    <td><b>{{ dish.title }}</b></td>
+    <td><img src={{dish.image}} /></td>
+    <td>
+        <!-- <p>{{ dish.summary }} </p> -->
+        <p [innerHTML]="dish.summary"></p>
+    </td>
+    <td><button class="btn-sm btn-secondary" (click)="viewDishDetail(dish.id)">Details</button></td>
+    <td><button class="btn-sm btn-danger" (click)="deleteDish(dish.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+</article>
+</div> <!-- card.// -->
+
+  <div>
+      <form class="form-inline my-2 my-lg-0" style="display: flex; justify-content: space-between;">
+          <input class="form-control mr-sm-2" [(ngModel)]="searchText" type="search" placeholder="Search" aria-label="Search" name="search">
+          <button class="btn btn-success my-2 my-sm-0" type="submit" (click)="trySearch(searchText)">Search</button>
+        </form>
+  </div>
+
+<span><br /></span>
+
+<div class="row float-left">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+
+<div class="card text-white bg-light mb-4 mx-auto" style="width: 60rem;">
+<article class="card-body" style="width: 60rem;">
+<table appPanel id="tabla" class="table table-sm table-hover table-secondary table-striped">
+    <thead>
+      <tr>
+        <th class="text-center" colspan="7"><h4><b>Dish Finder</b></h4></th>
+      </tr>
+      <tr>
+        <th><h5><b>Name</b></h5></th>
+        <th><h5><b>ID</b></h5></th>
+        <th><h5><b>Actions</b></h5></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dish of this.results">
+      <td><b>{{ dish.title }}</b></td>
+      <td>{{ dish.id }}</td>
+      <td><button class="btn-sm btn-success" (click)="addDish(dish.id)">Add to Menu</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.errorAddDish"> 
+    <strong>Error.</strong> Reached max amount of dishes of this type.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
+    </button>
+  </div>
+  <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.successAddDish"> 
+    <strong>Success.</strong> Added dish to the menu.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
+    </button>
+  </div>
+  </article>
+  </div> <!-- card.// -->
+
+<ng-template #itemDetail let-modal class="card text-white bg-dark mb-3">
+    <div class="card text-white bg-dark mb-3">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                <span><h4><b>{{'Dish Details'}}</b></h4></span>
+            </h5>
+            <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ng-container *ngFor="let dish of this.menu">
+            <ng-container *ngIf="selectedId === dish.id">
+                <p><b>{{dish.title}}</b></p>
+                <p [innerHTML]="dish.summary"></p>
+        </ng-container>
+    </ng-container>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</ng-template>

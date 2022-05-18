@@ -1,0 +1,42 @@
+<!-- <app-spinner></app-spinner> -->
+
+<div class="bg">
+    <br>
+<div class="container">
+
+    
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-lg-8 mx-auto">
+
+    <div class="card text-white bg-dark mb-4">
+    <article class="card-body">
+    <h4 class="card-title mb-4 mt-1"><b>Login</b></h4>
+    
+    <form [formGroup]="form">
+        <div class="form-group">
+          <label><b>E-mail</b></label>
+          <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': form.controls['email'].touched && form.controls['email'].invalid }" required>
+          <div *ngIf="form.controls['email'].touched && form.controls['email'].invalid" style="color:red;">You must provide a valid e-mail.</div>
+        </div> <!-- form-group// -->
+        <br />
+        <div class="form-group">
+            <label><b>Password</b></label>
+            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': form.controls['password'].touched && form.controls['password'].invalid }" required>
+            <div *ngIf="form.controls['password'].touched && form.controls['password'].invalid" style="color:red;">You must provide a valid password.</div>
+          </div> 
+          <button type="submit" (click)="tryLogin(this.form.value)" class="btn btn-success" style="float:right; margin:10px;"><b>Log In</b></button>                                                         
+    </form>
+    <br />
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.error" style="margin-top:30px;" role="alert"> 
+        {{ this.errorMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
+        </button>
+      </div>
+      <div class="alert alert-success alert-dismissible fade show" *ngIf="this.success" style="margin-top:30px;" role="alert"> 
+        {{ this.successMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
+        </button>
+      </div>
+    </article>
+    </div> <!-- card.// -->
+  </div>
