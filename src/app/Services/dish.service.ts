@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DishService {
 
-    token: string = '92fc5497d5944b69aebfe5caf0f21c74';
+    token: string = '057134cc3c014b6e9c02fbc7e8cd7a05';
     // url: string = "https://api.spoonacular.com/recipes/716429/information?apiKey=92fc5497d5944b69aebfe5caf0f21c74&includeNutrition=true";
     url: string = "https://api.spoonacular.com/";
 

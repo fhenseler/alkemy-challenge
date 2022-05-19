@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit {
   public show: number = 0;
   public errorAddDish = false;
   public successAddDish = false;
+  public successDeleteDish = false;
+  public added: number = 0;
 
   constructor(public formBuilder1: FormBuilder, public formBuilder2: FormBuilder, public DishService: DishService, public authService: AuthService, public modalService: NgbModal) {
     this.totalPrice = { "name": "Price", "value": 0 };
@@ -68,9 +70,11 @@ export class DashboardComponent implements OnInit {
   public addDish(id: string){
     this.DishService.findDishById(id).subscribe(data =>{
       if(this.nonVeganCount < 2 && this.veganCount < 2){
-        this.successAddDish = true;
+        if(this.added > 1){
+          this.successAddDish = true;
+        }
+        this.added++;
         this.menu.push(data);
-        console.log(data);
         const index = this.menu.findIndex((item: any)=> item.id == id);
         this.addStats(index);
 
@@ -81,20 +85,36 @@ export class DashboardComponent implements OnInit {
         else{
           this.nonVeganCount++;
         }
-        this.calculateAverages();
       }
       else{
           this.errorAddDish = true;
       }  
+      this.calculateAverages();
+      setTimeout(()=>{ 
+        this.successAddDish = false;
+        this.errorAddDish = false;
+      }, 2000);
     });
-    this.calculateAverages();
+  }
+
+  public closeAddErrorAlert(){
+    this.errorAddDish = false;
+  }
+
+  public closeAddSuccessAlert(){
+    this.successAddDish = false;
+  }
+
+  public closeDeleteSuccessAlert(){
+    this.successDeleteDish = false;
   }
 
   public deleteDish(id: string){
     const removeIndex = this.menu.findIndex((item: any)=> item.id === id);
-    this.totalPrice.value -= +this.menu[removeIndex].pricePerServing;
+    this.totalPrice.value -= Math.round((+this.menu[removeIndex].pricePerServing.toFixed(2) / 100));
     this.totalMinutes -= +this.menu[removeIndex].readyInMinutes;
     this.totalHealthScore -= +this.menu[removeIndex].healthScore;
+    this.successDeleteDish = true;
 
     this.dishCount -= 1;
     if(this.menu[removeIndex].vegan){
@@ -104,14 +124,17 @@ export class DashboardComponent implements OnInit {
       this.nonVeganCount--;
     }
 
-    this.calculateAverages();
     this.averageHealthScore = this.totalHealthScore / this.dishCount;
     this.averageMinutes = this.totalMinutes / this.dishCount;
+    this.calculateAverages();
     this.menu.splice( removeIndex, 1 );
+    setTimeout(()=>{ 
+      this.successDeleteDish = false;
+    }, 2000);
   }
 
   public addStats(index: number){
-    this.totalPrice.value += +this.menu[index].pricePerServing;
+    this.totalPrice.value += Math.round((+this.menu[index].pricePerServing.toFixed(2) / 100));
     this.totalHealthScore += +this.menu[index].healthScore;
     this.totalMinutes += +this.menu[index].readyInMinutes;
   }
@@ -119,6 +142,12 @@ export class DashboardComponent implements OnInit {
   public calculateAverages(){
       this.averageHealthScore = this.totalHealthScore / this.dishCount;
       this.averageMinutes = this.totalMinutes / this.dishCount;
+      if (Number.isNaN(this.averageHealthScore)){
+        this.averageHealthScore = 0;
+      }
+      if (Number.isNaN(this.averageMinutes)){
+        this.averageMinutes = 0;
+      }
   }
 
   public viewDishDetail(id: string){

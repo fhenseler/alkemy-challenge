@@ -56,6 +56,18 @@ export class LoginComponent implements OnInit {
           this.error = true;
         }));
       } 
+      setTimeout(()=>{ 
+        this.error = false;
+        this.success = false;
+      }, 5000);
   	}
+
+    public closeErrorAlert(){
+      this.error = false;
+    }
+
+    public closeSuccessAlert(){
+      this.success = false;
+    }
 
 }

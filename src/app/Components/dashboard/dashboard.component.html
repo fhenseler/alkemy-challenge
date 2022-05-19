@@ -2,7 +2,7 @@
     <br>
 <div class="container">
 
-    <div> <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="tryLogout()" style="float: right;">Log Out</button></div>
+    <div> <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="tryLogout()">Log Out</button></div>
     <br>
     <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
         <div class="card-header"><h4><b>Menu Stats</b></h4></div>
@@ -10,6 +10,8 @@
             <p class="card-text"><b>Total Price:</b> ${{ this.totalPrice.value }} </p>
             <p class="card-text"><b>Average Prep Time:</b> {{ this.averageMinutes }} minutes</p>
             <p class="card-text"><b>Average Health Score:</b> {{ this.averageHealthScore }}</p>
+            <p class="card-text"><b>Amount of Vegan Dishes:</b> {{ this.veganCount }}</p>
+            <p class="card-text"><b>Amount of Non Vegan Dishes:</b> {{ this.nonVeganCount }}</p>
         </div>
     </div>
     <div class="row float-left">
@@ -61,37 +63,50 @@
 
 <div class="card text-white bg-light mb-4 mx-auto" style="width: 60rem;">
 <article class="card-body" style="width: 60rem;">
-<table appPanel id="tabla" class="table table-sm table-hover table-secondary table-striped">
+<table appPanel id="table" class="table table-sm table-hover table-secondary table-striped">
     <thead>
       <tr>
         <th class="text-center" colspan="7"><h4><b>Dish Finder</b></h4></th>
       </tr>
       <tr>
-        <th><h5><b>Name</b></h5></th>
-        <th><h5><b>ID</b></h5></th>
-        <th><h5><b>Actions</b></h5></th>
+        <th class="left"><h5><b>Name</b></h5></th>
+        <th style="text-align:right; margin-right:15px;"><h5><b>Actions</b></h5></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let dish of this.results">
-      <td><b>{{ dish.title }}</b></td>
-      <td>{{ dish.id }}</td>
-      <td><button class="btn-sm btn-success" (click)="addDish(dish.id)">Add to Menu</button></td>
+      <td class="left"><b>{{ dish.title }}</b></td>
+      <td style="text-align:right; margin-right:15px;"><button class="btn-sm btn-success" (click)="addDish(dish.id)">Add to Menu</button></td>
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.errorAddDish"> 
-    <strong>Error.</strong> Reached max amount of dishes of this type.
-    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
-    </button>
-  </div>
-  <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.successAddDish"> 
-    <strong>Success.</strong> Added dish to the menu.
-    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close">
-    </button>
-  </div>
+
   </article>
   </div> <!-- card.// -->
+
+
+  <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.errorAddDish"> 
+    <strong>Error.</strong> Reached max amount of dishes of this type.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeAddErrorAlert()">
+    </button>
+  </div>
+</div>
+
+  <div class="alert alert-success alert-dismissible fade show" *ngIf="this.successAddDish"> 
+    <strong>Success.</strong> Added dish to the menu.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeAddSuccessAlert()">
+    </button>
+  </div>
+  </div>
+</div>
+
+<div class="alert alert-success alert-dismissible fade show" *ngIf="this.successDeleteDish"> 
+  <strong>Success.</strong> Deleted dish from the menu.
+  <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeDeleteSuccessAlert()">
+  </button>
+</div>
+
+</div>
 
 <ng-template #itemDetail let-modal class="card text-white bg-dark mb-3">
     <div class="card text-white bg-dark mb-3">
