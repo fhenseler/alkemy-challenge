@@ -8,7 +8,7 @@ body, html {
 
 .bg {
     /* The image used */
-    background-image: url("../../../assets/background.jpg");
+    background-image: url("../../../assets/background.jpg") !important;
   
     /* Full height */
     height: 100% !important;

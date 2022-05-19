@@ -41,8 +41,8 @@
         <!-- <p>{{ dish.summary }} </p> -->
         <p [innerHTML]="dish.summary"></p>
     </td>
-    <td><button class="btn-sm btn-secondary" (click)="viewDishDetail(dish.id)">Details</button></td>
-    <td><button class="btn-sm btn-danger" (click)="deleteDish(dish.id)">Delete</button></td>
+    <td><button class="btn-sm btn-info" (click)="viewDishDetail(dish.id)">Details</button></td>
+    <td><button class="btn-sm btn-danger" (click)="deleteDish(dish.id)" style="color:black;">Delete</button></td>
     </tr>
   </tbody>
 </table>
