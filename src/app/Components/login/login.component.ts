@@ -15,8 +15,6 @@ export class LoginComponent implements OnInit {
 	  public form: FormGroup;
     public errorMessage: string;
     public error: boolean;
-    public success: boolean;
-    public successMessage: string;
 
   	constructor(public formBuilder: FormBuilder, public userService: UserService, private router: Router) {
   		this.form = this.formBuilder.group({
@@ -25,9 +23,7 @@ export class LoginComponent implements OnInit {
       });
 
       this.errorMessage = '';
-      this.successMessage = '';
       this.error = false;
-      this.success = false;
   	}
 
   	ngOnInit() {
@@ -45,8 +41,6 @@ export class LoginComponent implements OnInit {
         this.userService.userLogin(form).subscribe(data => {
           let dataResponse: IResponse = data;
           if(dataResponse.token){
-            this.successMessage = 'Successful login!';
-            this.success = true;
             localStorage.setItem("token", JSON.stringify(dataResponse.token));
             this.router.navigate(['/Dashboard']);
           }
@@ -58,16 +52,11 @@ export class LoginComponent implements OnInit {
       } 
       setTimeout(()=>{ 
         this.error = false;
-        this.success = false;
       }, 5000);
   	}
 
     public closeErrorAlert(){
       this.error = false;
-    }
-
-    public closeSuccessAlert(){
-      this.success = false;
     }
 
 }

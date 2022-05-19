@@ -37,7 +37,8 @@ export class DashboardComponent implements OnInit {
   public errorAddDish = false;
   public successAddDish = false;
   public successDeleteDish = false;
-  public added: number = 0;
+  public addedCount: number = 0;
+  public errorMessage: string;
 
   constructor(public formBuilder1: FormBuilder, public formBuilder2: FormBuilder, public DishService: DishService, public authService: AuthService, public modalService: NgbModal) {
     this.totalPrice = { "name": "Price", "value": 0 };
@@ -45,6 +46,7 @@ export class DashboardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('token')!);
     this.searchText = '';
     this.foundDishes = [];
+    this.errorMessage = ''
   }
 
   ngOnInit() {
@@ -70,10 +72,10 @@ export class DashboardComponent implements OnInit {
   public addDish(id: string){
     this.DishService.findDishById(id).subscribe(data =>{
       if(this.nonVeganCount < 2 && this.veganCount < 2){
-        if(this.added > 1){
+        if(this.addedCount > 1){
           this.successAddDish = true;
         }
-        this.added++;
+        this.addedCount++;
         this.menu.push(data);
         const index = this.menu.findIndex((item: any)=> item.id == id);
         this.addStats(index);
@@ -87,7 +89,7 @@ export class DashboardComponent implements OnInit {
         }
       }
       else{
-          this.errorAddDish = true;
+        this.errorAddDish = true;
       }  
       this.calculateAverages();
       setTimeout(()=>{ 

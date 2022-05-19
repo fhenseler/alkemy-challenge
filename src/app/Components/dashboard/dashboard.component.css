@@ -14,11 +14,11 @@ img {
 .bg {
   /* The image used */
   /* background-image: url("../../../assets/background.jpg"); */
-  background-color: rgb(63, 104, 139);
 
   /* Full height */
   height: 100% auto !important;
-  min-height: 100%;
+  width: 100vw;
+  min-height: 100vh;
 
   /* Center and scale the image nicely */
   /* background-position: center;
