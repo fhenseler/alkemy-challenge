@@ -4,7 +4,7 @@
 
     <div> <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="tryLogout()">Log Out</button></div>
     <br>
-    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+    <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
         <div class="card-header"><h4><b>Menu Stats</b></h4></div>
         <div class="card-body">
             <p class="card-text"><b>Total Price:</b> ${{ this.totalPrice.value }} </p>
@@ -14,16 +14,16 @@
             <p class="card-text"><b>Amount of Non Vegan Dishes:</b> {{ this.nonVeganCount }}</p>
         </div>
     </div>
-    <div class="row float-left">
+    
+    <div class="row">
         <div class="col-sm-8 col-md-6 col-lg-4">
-    <div class="card text-white bg-light mb-4 mx-auto" style="width: 60rem;">
-    <article class="card-body" style="width: 60rem;">
-
-
-<table appPanel id="tabla" class="table table-sm table-hover table-info table-striped">
+    <div class="card text-white bg-light mb-4 mx-auto" style="width:60rem;">
+    <article class="card-body" style="width:60rem;">
+      <div class="table-responsive-sm">
+  <table appPanel class="table table-sm table-hover table-info table-striped">
   <thead>
     <tr>
-      <th class="text-center" colspan="7"><h4><b>Our Dishes</b></h4></th>
+      <th class="text-center" colspan="7"><h4><b>Menu</b></h4></th>
     </tr>
     <tr>
       <th><h5><b>Name</b></h5></th>
@@ -46,6 +46,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 </article>
 </div> <!-- card.// -->
 
@@ -86,7 +87,7 @@
 
 
   <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.errorAddDish"> 
-    <strong>Error.</strong> Reached max amount of dishes of this type.
+    <strong>Error.</strong> {{ this.errorMessage }} (2).
     <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeAddErrorAlert()">
     </button>
   </div>
@@ -108,7 +109,7 @@
 
 </div>
 
-<ng-template #itemDetail let-modal class="card text-white bg-dark mb-3">
+<ng-template #itemDetail let-modal class="card text-white bg-secondary mb-3">
     <div class="card text-white bg-dark mb-3">
         <div class="modal-header">
             <h5 class="modal-title">

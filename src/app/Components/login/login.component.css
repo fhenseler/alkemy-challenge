@@ -1,5 +1,6 @@
 .card{
-    width: 45rem;
+    width: 30rem;
+    margin:auto;
 }
 
 body, html {
@@ -20,4 +21,13 @@ body, html {
 
     width: 100vw;
     min-height: 100vh;
+}
+
+.alert{
+    position:fixed; 
+    width: 20%;
+    z-index:9999; 
+    border-radius:0px;
+    top: 0px;
+    right: 5px;
 }

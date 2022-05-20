@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('token')!);
     this.searchText = '';
     this.foundDishes = [];
-    this.errorMessage = ''
+    this.errorMessage = '';
   }
 
   ngOnInit() {
@@ -69,35 +69,81 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  public addDish(id: string){
-    this.DishService.findDishById(id).subscribe(data =>{
-      if(this.nonVeganCount < 2 && this.veganCount < 2){
-        if(this.addedCount > 1){
-          this.successAddDish = true;
-        }
-        this.addedCount++;
-        this.menu.push(data);
-        const index = this.menu.findIndex((item: any)=> item.id == id);
-        this.addStats(index);
+  // public addDish(id: string){
+  //   this.DishService.findDishById(id).subscribe(data =>{
+  //     if(this.nonVeganCount < 2 && this.veganCount < 2){
+  //       if(this.addedCount > 1){
+  //         this.successAddDish = true;
+  //       }
+  //       this.addedCount++;
+  //       this.menu.push(data);
+  //       const index = this.menu.findIndex((item: any)=> item.id == id);
+  //       this.addStats(index);
 
-        this.dishCount += 1;
-        if(this.menu[index].vegan){
-          this.veganCount++;
+  //       this.dishCount += 1;
+  //       if(this.menu[index].vegan){
+  //         this.veganCount++;
+  //       }
+  //       else{
+  //         this.nonVeganCount++;
+  //       }
+  //     }
+  //     else{
+  //       this.errorAddDish = true;
+  //     }  
+  //     this.calculateAverages();
+      // setTimeout(()=>{ 
+      //   this.successAddDish = false;
+      //   this.errorAddDish = false;
+      // }, 2000);
+  //   });
+  // }
+
+  public addDish(id: string){
+    //this.nonVeganCount < 2 && this.veganCount < 2
+    this.DishService.findDishById(id).subscribe(data =>{
+      if(data.vegan){
+        if(this.veganCount < 2){
+          this.menu.push(data);
+          const index = this.menu.findIndex((item: any)=> item.id == id);
+            if(this.addedCount > 1){
+              this.successAddDish = true;
+            }
+            this.addedCount++;
+            this.addStats(index);
+    
+            this.dishCount++;
+            this.veganCount++;
+          }
+          else{
+            this.errorMessage = 'Reached max amount of vegan dishes';
+            this.errorAddDish = true;
+          }
         }
-        else{
-          this.nonVeganCount++;
-        }
-      }
       else{
-        this.errorAddDish = true;
-      }  
-      this.calculateAverages();
-      setTimeout(()=>{ 
-        this.successAddDish = false;
-        this.errorAddDish = false;
-      }, 2000);
-    });
-  }
+        if(this.nonVeganCount < 2){
+          this.menu.push(data);
+          const index = this.menu.findIndex((item: any)=> item.id == id);
+            if(this.addedCount > 1){
+              this.successAddDish = true;
+            }
+            this.addedCount++;
+            this.addStats(index);
+    
+            this.dishCount++;
+            this.nonVeganCount++;
+          }
+          else{
+            this.errorMessage = 'Reached max amount of non vegan dishes';
+            this.errorAddDish = true;
+          }
+        }
+        setTimeout(()=>{ 
+          this.successAddDish = false;
+          this.errorAddDish = false;
+        }, 2000);
+      });
+   }
 
   public closeAddErrorAlert(){
     this.errorAddDish = false;

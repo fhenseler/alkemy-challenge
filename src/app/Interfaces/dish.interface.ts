@@ -3,4 +3,5 @@ export interface IDish {
         name: string;
         description: {};
         image: {};
+        vegan: boolean;
 }

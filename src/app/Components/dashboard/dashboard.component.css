@@ -19,7 +19,7 @@ img {
   height: 100% auto !important;
   width: 100vw;
   min-height: 100vh;
-
+ 
   /* Center and scale the image nicely */
   /* background-position: center;
   background-repeat: no-repeat;
@@ -30,6 +30,3 @@ img {
   width: 100px;
 }
 
-#table{
-  width: 100%;
-}
