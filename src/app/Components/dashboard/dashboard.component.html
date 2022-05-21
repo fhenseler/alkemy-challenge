@@ -87,14 +87,14 @@
 
 
   <div class="alert alert-danger alert-dismissible fade show" *ngIf="this.errorAddDish"> 
-    <strong>Error.</strong> {{ this.errorMessage }} (2).
+    <strong>Error.</strong> {{ this.alertMessage }} (2).
     <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeAddErrorAlert()">
     </button>
   </div>
 </div>
 
   <div class="alert alert-success alert-dismissible fade show" *ngIf="this.successAddDish"> 
-    <strong>Success.</strong> Added dish to the menu.
+    <strong>Success.</strong> {{ this.alertMessage }}
     <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeAddSuccessAlert()">
     </button>
   </div>
@@ -102,7 +102,7 @@
 </div>
 
 <div class="alert alert-success alert-dismissible fade show" *ngIf="this.successDeleteDish"> 
-  <strong>Success.</strong> Deleted dish from the menu.
+  <strong>Success.</strong> {{ this.alertMessage }}
   <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close" (click)="closeDeleteSuccessAlert()">
   </button>
 </div>
