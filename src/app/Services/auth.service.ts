@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-	url: string = "https://challenge-react.alkemy.org";
+	url: string = "http://challenge-react.alkemy.org";
 
 	redirectUrl: string = '/';
 
